@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  aqs-mule:
+    image: dzvid/ibrdtn:latest
+    container_name: aqs-mule
+    restart: always
+    network_mode: host
+    volumes:
+      - ./ibrdtn/config/flooding/ibrdtn.conf:/ibrdtn/config/ibrdtn.conf
+      - ./ibrdtn/bundles:/ibrdtn/bundles
+      - ./ibrdtn/log:/ibrdtn/log
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    entrypoint:
+      [
+        "dtnd",
+        "-i",
+        "WIRELESS_INTERFACE",
+        "-c",
+        "/ibrdtn/config/ibrdtn.conf",
+        "-d",
+        "99",
+      ]
